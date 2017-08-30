@@ -1,4 +1,2 @@
 动画练习
-1.帧动画
-2.
-3.
+1.demo只添加了属性动画（Property Animation）。
