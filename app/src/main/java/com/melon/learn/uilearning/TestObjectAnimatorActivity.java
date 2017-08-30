@@ -15,7 +15,7 @@ import android.widget.TextView;
  * Created by Melon on 2017/8/30.
  */
 
-public class TestObjectAnimatorActivity extends Activity{
+public class TestObjectAnimatorActivity extends Activity {
 
     private ImageView mImage;
     private TextView mAlphaView;
@@ -24,7 +24,7 @@ public class TestObjectAnimatorActivity extends Activity{
     private TextView mRotateView;
     private TextView mSetView;
     private ObjectAnimator alphaAnimator;
-    private Animator scaleXAnimator;
+    private Animator scaleAnimator;
     private ObjectAnimator translateAnimator;
     private ObjectAnimator rotateAnimator;
     private AnimatorSet animatorSet;
@@ -34,44 +34,68 @@ public class TestObjectAnimatorActivity extends Activity{
         @Override
         public void onClick(View v) {
             if (v == mAlphaView) {
-                alphaAnimator = (ObjectAnimator)AnimatorInflater.loadAnimator(TestObjectAnimatorActivity.this, R.animator
-                        .anim_object_alpha);
-                alphaAnimator.setTarget(mImage);
+                if (alphaAnimator == null) {
+                    alphaAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(TestObjectAnimatorActivity.this, R
+                            .animator.anim_object_alpha);
+                    alphaAnimator.setTarget(mImage);
+                }
+
                 alphaAnimator.start();
 
             } else if (v == mScaleView) {
 
-                scaleXAnimator = AnimatorInflater.loadAnimator(TestObjectAnimatorActivity.this, R.animator
-                        .anim_object_scale);
-                scaleXAnimator.setTarget(mImage);
-                scaleXAnimator.start();
+                if (scaleAnimator == null) {
+                    scaleAnimator = AnimatorInflater.loadAnimator(TestObjectAnimatorActivity.this, R.animator
+                            .anim_object_scale);
+                    scaleAnimator.setTarget(mImage);
+                }
+
+                scaleAnimator.start();
 
             } else if (v == mTranslateView) {
-                translateAnimator = ObjectAnimator.ofFloat(mImage, "translationX", 0, -200);
-                translateAnimator.setDuration(1000);
-                translateAnimator.setRepeatCount(5);
-                translateAnimator.setRepeatMode(ValueAnimator.REVERSE);
+                if (translateAnimator == null) {
+                    translateAnimator = ObjectAnimator.ofFloat(mImage, "translationX", 0, -200);
+                    translateAnimator.setDuration(1000);
+                    translateAnimator.setRepeatCount(5);
+                    translateAnimator.setRepeatMode(ValueAnimator.REVERSE);
+                }
+
                 translateAnimator.start();
             } else if (v == mRotateView) {
-                rotateAnimator = ObjectAnimator.ofFloat(mImage, "rotation", 0f, 180f);
-                rotateAnimator.setDuration(1000);
-                rotateAnimator.setRepeatCount(3);
-                rotateAnimator.setRepeatMode(ValueAnimator.RESTART);
-                rotateAnimator.start();
-            } else if (v == mSetView){
-                animatorSet = new AnimatorSet();
-                animatorSet.setTarget(mImage);
-                alphaAnimator = (ObjectAnimator)AnimatorInflater.loadAnimator(TestObjectAnimatorActivity.this, R.animator
-                        .anim_object_alpha);
+                if (rotateAnimator == null) {
+                    rotateAnimator = ObjectAnimator.ofFloat(mImage, "rotation", 0f, 180f);
+                    rotateAnimator.setDuration(1000);
+                    rotateAnimator.setRepeatCount(3);
+                    rotateAnimator.setRepeatMode(ValueAnimator.RESTART);
+                }
 
-                animatorSet.playTogether(alphaAnimator,scaleXAnimator);
+                rotateAnimator.start();
+            } else if (v == mSetView) {
+                if (animatorSet == null) {
+                    animatorSet = new AnimatorSet();
+                    animatorSet.setTarget(mImage);
+                }
+
+                if (alphaAnimator == null) {
+                    alphaAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(TestObjectAnimatorActivity.this, R
+                            .animator.anim_object_alpha);
+                    alphaAnimator.setTarget(mImage);
+                }
+                if (scaleAnimator == null) {
+                    scaleAnimator = AnimatorInflater.loadAnimator(TestObjectAnimatorActivity.this, R.animator
+                            .anim_object_scale);
+                    scaleAnimator.setTarget(mImage);
+                }
+
+                animatorSet.playTogether(alphaAnimator, scaleAnimator);
                 animatorSet.start();
 
             }
         }
     };
+
     @Override
-    protected void onCreate( Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.animation_test_activity);
 

@@ -11,7 +11,7 @@ public class MainActivity extends AppCompatActivity {
     private View mFrameView;
     private View mPropertyView;
 
-    private View.OnClickListener mCommenClickListener = new View.OnClickListener() {
+    private View.OnClickListener mCommonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
 
@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
         mFrameView = findViewById(R.id.view_frame_anim);
         mPropertyView = findViewById(R.id.view_property_anim);
 
-        mTweenView.setOnClickListener(mCommenClickListener);
-        mFrameView.setOnClickListener(mCommenClickListener);
-        mPropertyView.setOnClickListener(mCommenClickListener);
+        mTweenView.setOnClickListener(mCommonClickListener);
+        mFrameView.setOnClickListener(mCommonClickListener);
+        mPropertyView.setOnClickListener(mCommonClickListener);
     }
 }
