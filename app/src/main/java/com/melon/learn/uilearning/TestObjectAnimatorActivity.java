@@ -8,6 +8,9 @@ import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.Transformation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,7 +18,7 @@ import android.widget.TextView;
  * Created by Melon on 2017/8/30.
  */
 
-public class TestObjectAnimatorActivity extends Activity {
+public class TestObjectAnimatorActivity extends BaseActivity {
 
     private ImageView mImage;
     private TextView mAlphaView;
@@ -28,6 +31,7 @@ public class TestObjectAnimatorActivity extends Activity {
     private ObjectAnimator translateAnimator;
     private ObjectAnimator rotateAnimator;
     private AnimatorSet animatorSet;
+    private TranslateAnimation mTransAnimation;
 
 
     private View.OnClickListener mClickListener = new View.OnClickListener() {
@@ -40,6 +44,7 @@ public class TestObjectAnimatorActivity extends Activity {
                     alphaAnimator.setTarget(mImage);
                 }
 
+
                 alphaAnimator.start();
 
             } else if (v == mScaleView) {
@@ -50,6 +55,7 @@ public class TestObjectAnimatorActivity extends Activity {
                     scaleAnimator.setTarget(mImage);
                 }
 
+
                 scaleAnimator.start();
 
             } else if (v == mTranslateView) {
@@ -59,6 +65,26 @@ public class TestObjectAnimatorActivity extends Activity {
                     translateAnimator.setRepeatCount(5);
                     translateAnimator.setRepeatMode(ValueAnimator.REVERSE);
                 }
+
+                mTransAnimation = new TranslateAnimation(0,0,200,200);
+                mTranslateView.setAnimation(mTransAnimation);
+                mTransAnimation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                mTransAnimation.start();
 
                 translateAnimator.start();
             } else if (v == mRotateView) {
@@ -95,7 +121,7 @@ public class TestObjectAnimatorActivity extends Activity {
     };
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.animation_test_activity);
 
@@ -113,5 +139,15 @@ public class TestObjectAnimatorActivity extends Activity {
         mSetView.setOnClickListener(mClickListener);
 
 
+    }
+
+
+    private void testAnimation(){
+        Animation animation = new Animation() {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                super.applyTransformation(interpolatedTime, t);
+            }
+        };
     }
 }
